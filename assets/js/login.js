@@ -35,8 +35,8 @@ $(function () {
     e.preventDefault();
 
     var data = { username: $('#form_reg [name=username]').val(), password: $('#form_reg [name=password]').val() }
-    
-    $.post('http://ajax.frontend.itheima.net//api/reguser', data, function (res) {
+
+    $.post('/api/reguser', data, function (res) {
 
       if (res.status !== 0) {
 
@@ -48,6 +48,29 @@ $(function () {
       $('#link_login').click()
     })
 
+  })
+
+  var layer = layui.layer
+  $('#form_login').submit(function (e) {
+
+    e.preventDefault()
+    $.ajax({
+
+      url: '/api/login',
+      method: 'POST',
+      data: $(this).serialize(),
+      success: function (res) {
+
+        if (res.status !== 0) {
+          return layer.msg('登录失败!')
+        }
+        layer.msg('登陆成功!')
+        localStorage.setItem('token', res.token)
+        console.log(res.token);
+        location.href = 'index.html'
+
+      }
+    })
   })
 
 })
