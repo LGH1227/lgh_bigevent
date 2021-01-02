@@ -27,4 +27,3 @@ $.ajaxPrefilter(function (options) {
   }
 
 })
-git 
